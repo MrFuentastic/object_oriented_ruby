@@ -13,47 +13,50 @@
 #redoing fruit hashes in class form
 
 class Fruit
+  attr_reader :name, :color, :size, :price, :in_stock
+  attr_writer :price, :in_stock
 
-  def initialize(name, color, size, price, in_stock)
-    @name = name
-    @color = color
-    @size = size
-    @price = price
-    @in_stock = in_stock
+
+  def initialize(input_options)
+    @name = input_options[:name]
+    @color = input_options[:color]
+    @size = input_options[:size]
+    @price = input_options[:price]
+    @in_stock = input_options[:in_stock]
   end
 
-  def name
-    @name
-  end
-
-  def color
-    @color
-  end
-
-  def size
-    @size
-  end
-
-  def price
-    @price
-  end
-
-  def in_stock
-    @in_stock
-  end
-
-  def price=(new_price)
-    @price = new_price
-  end
-
-  def in_stock=(still_in_stock)
-    @in_stock = still_in_stock
-  end
 end
 
 fruits = [
-  Fruit.new("apple", "red", "apple sized", 54.99, true),
-  Fruit.new("orange", "orange", "3 inch diameter", 213.43, false),
-  Fruit.new("lemon", "yellow", "12 week old fetus", 1.99, true),
-  Fruit.new("watermelon", "green on the outside, red on the inside", "human head", 23432234.99, false)
+  Fruit.new(
+    name: "apple", color: "red",
+    size: "apple sized", 
+    price: 54.99, 
+    in_stock: true
+    ),
+  Fruit.new(
+    name: "orange", 
+    color: "orange", 
+    size: "3 inch diameter", 
+    price: 213.43, 
+    in_stock: false
+    ),
+  Fruit.new(
+    name: "lemon", 
+    color: "yellow", 
+    size: "12 week old fetus", 
+    price: 1.99, in_stock: true
+    ),
+  Fruit.new(
+    name: "watermelon", 
+    color: "green on the outside, red on the inside", 
+    size: "human head", 
+    price: 23432234.99, 
+    in_stock: false
+    )
 ]
+
+p fruits[2].size
+p fruits[3].in_stock
+p fruits[3].in_stock=(true)
+p fruits[3].in_stock
