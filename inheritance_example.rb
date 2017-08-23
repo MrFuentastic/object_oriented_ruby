@@ -37,11 +37,12 @@ class Car < Vehicle
 end
 
 class Bike < Vehicle
-  attr_writer :type, :weight
-  attr_reader :type, :weight
+  attr_writer :type, :weight, :gears
+  attr_reader :type, :weight, :gears
 
   def initialize(vehicle_hash)
     super
+    @gears = vehicle_hash[:gears]
     @type = vehicle_hash[:type]
     @weight = vehicle_hash[:weight]
   end
@@ -51,5 +52,11 @@ class Bike < Vehicle
   end
 end
 
-chwin = Bike.new({speed: "10mph", direction: "true north", type: "Shwinn", weight: "30lbs"})
+chwin = Bike.new(
+                  speed: "10mph", 
+                  gears: 1,
+                  direction: "true north", 
+                  type: "Shwinn", 
+                  weight: "30lbs"
+                  )
 p chwin
