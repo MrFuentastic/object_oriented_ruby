@@ -11,18 +11,26 @@
 # watermelon = {color: "green on the outside, red on the inside", size: "human head", price: 23432234.99, in_stock: false}
 
 #redoing fruit hashes in class form
-
-class Fruit
-  attr_reader :name, :color, :size, :price, :in_stock
+class Product
+  attr_reader :name, :price, :in_stock
   attr_writer :price, :in_stock
-
 
   def initialize(input_options)
     @name = input_options[:name]
-    @color = input_options[:color]
-    @size = input_options[:size]
     @price = input_options[:price]
     @in_stock = input_options[:in_stock]
+  end
+
+end
+
+class Fruit < Product
+  attr_reader :color, :size
+
+  def initialize(input_options)
+    super
+    @color = input_options[:color]
+    @size = input_options[:size]
+    
   end
 
 end
