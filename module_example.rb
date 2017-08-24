@@ -23,7 +23,7 @@ class Vehicle
 
 end
 
-class Car
+class Car < Vehicle
 
   def initialize(input_options)
     super()
@@ -36,7 +36,7 @@ class Car
   end
 end
 
-class Bike
+class Bike < Vehicle
 
   def initialize(input_options)
     super()
@@ -48,3 +48,10 @@ class Bike
     puts "Ring ring!"
   end
 end
+
+p bike = Bike.new(
+                    gears: 1,
+                    weight: 5
+                     )
+
+p bike.turn("to the skies")
