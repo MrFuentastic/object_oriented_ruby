@@ -8,28 +8,32 @@
 # 6. CHALLENGE: Change the interface with better prompts, ASCII art, etc. Be as creative as you'd like!
 
 class Card
-  def question
+  attr_reader :question, :answer
+  def initialize(card_array)
+    @question = card_array[0]
+    @answer = card_array[1]
   end
+
+
 end
 
 class Deck
 
 
-  def initialize(input_options)
-    @deck = input_options
+  def initialize(deck_hash)
+    @questions = deck_hash.keys
+    @answers = deck_hash.values    
   end  
 
-  def separate_cards
-    @questions = @deck.keys
-    @answers = @deck.values
-
-  end
-
   def draw_card
-    @card = [] << @questions.shift << @answers.shift
+    Card.new([
+              @questions.shift,
+              @answers.shift
+            ])
   end
 
   def remaining_cards
+    @questions.length
   end
 
 
