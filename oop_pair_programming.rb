@@ -36,7 +36,7 @@ class Deck
   end  
 
   def draw_card
-    Card.new([
+    Card.new([                                                                                                                                                                                     
               @questions.shift,
               @answers.shift
             ])
@@ -105,8 +105,8 @@ if incorrect_cards.length > 0
   if response == 'no'
     puts "Good for you for being happy where you are!"
   else
-    while deck.remaining_cards > 0
-    card = deck.draw_card # card is an instance of the Card class
+    while incorrect_cards.length > 0
+    card = incorrect_cards.shift
     puts card.question
     puts "Your choices are:"
     puts card.choices
@@ -114,19 +114,33 @@ if incorrect_cards.length > 0
     if user_answer.downcase == card.answer.downcase
       puts "Correct!"
       right_total += 1
+      wrong_total -= 1
     else
       puts 'Try again dumb dumb'
       user_answer = gets.chomp
       if user_answer.downcase == card.answer.downcase
         puts "Correct!"
         right_total += 1
+        wrong_total -= 1
       else
         puts "Incorrect!"
-        wrong_total += 1
-        incorrect_cards << card
       end
     end
     puts "--------------------------------------------------------------------"
   end
   end
 end
+
+score = right_total - wrong_total
+puts "You now have #{right_total.to_s} right and #{wrong_total.to_s} wrong. Your score is #{score}."
+
+if
+  wrong_total == 0
+  puts "Great! Don't let it get go to your head kid."
+elsif right_total == 0
+  puts "Jesus..."
+elsif score > 0
+  puts "Good job. Not great. Just good."
+else
+  puts "Maybe knowing stuff's just not your thing. Here's a coloring book."
+end 
