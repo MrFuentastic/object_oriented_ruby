@@ -8,10 +8,21 @@
 # 6. CHALLENGE: Change the interface with better prompts, ASCII art, etc. Be as creative as you'd like!
 
 class Card
-  attr_reader :question, :answer
+  attr_reader :question, :answer, :choices
   def initialize(card_array)
+
     @question = card_array[0]
     @answer = card_array[1]
+    @random_choices = ['Drew Barrymore', 'Quentin Tarantino', 'Keanu Reeves', 'Jet Li', 'Jackie Chan', 'Bruce Lee', 'Chuck Norris', 'Tom Cruise', 'Edward Norton', 'Brad Pitt', 'Twin Peaks', 'Game of Thrones', 'Minnesota', 'Wyoming', 'Seattle', 'Albany','Annapolis','Atlanta','Augusta','Austin','Bismarck','Boise','Boston','Charleston','Cheyenne','Columbia','Columbus','Concord','Denver','Dover','Frankfort','Harrisburg','Hartford','Helena','Honolulu','Indianapolis','Jackson','Junea','Lansing','Lincoln','Madison','Montgomery'
+]
+  end
+
+  def choices
+    @choices = [@answer]
+    3.times do
+      @choices << @random_choices[rand(@random_choices.length)]
+    end
+    return @choices.shuffle
   end
 
 
@@ -50,6 +61,8 @@ deck = Deck.new(trivia_data) # deck is an instance of the Deck class
 while deck.remaining_cards > 0
   card = deck.draw_card # card is an instance of the Card class
   puts card.question
+  puts "Your choices are:"
+  puts card.choices
   user_answer = gets.chomp
   if user_answer.downcase == card.answer.downcase
     puts "Correct!"
