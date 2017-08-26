@@ -13,8 +13,7 @@ class Card
 
     @question = card_array[0]
     @answer = card_array[1]
-    @random_choices = ['Drew Barrymore', 'Quentin Tarantino', 'Keanu Reeves', 'Jet Li', 'Jackie Chan', 'Bruce Lee', 'Chuck Norris', 'Tom Cruise', 'Edward Norton', 'Brad Pitt', 'Twin Peaks', 'Game of Thrones', 'Minnesota', 'Wyoming', 'Seattle', 'Albany','Annapolis','Atlanta','Augusta','Austin','Bismarck','Boise','Boston','Charleston','Cheyenne','Columbia','Columbus','Concord','Denver','Dover','Frankfort','Harrisburg','Hartford','Helena','Honolulu','Indianapolis','Jackson','Junea','Lansing','Lincoln','Madison','Montgomery'
-]
+    @random_choices = ['Drew Barrymore', 'Quentin Tarantino', 'Keanu Reeves', 'Jet Li', 'Jackie Chan', 'Bruce Lee', 'Chuck Norris', 'Tom Cruise', 'Edward Norton', 'Brad Pitt', 'Twin Peaks', 'Game of Thrones', 'Minnesota', 'Wyoming', 'Seattle', 'Albany','Annapolis','Atlanta','Augusta','Austin','Bismarck','Boise','Boston','Charleston','Cheyenne','Columbia','Columbus','Concord','Denver','Dover','Frankfort','Harrisburg','Hartford','Helena','Honolulu','Indianapolis','Jackson','Junea','Lansing','Lincoln','Madison','Montgomery']
   end
 
   def choices
@@ -58,6 +57,10 @@ trivia_data = {
 
 deck = Deck.new(trivia_data) # deck is an instance of the Deck class
 
+right_total = 0
+wrong_total = 0
+incorrect_cards = []
+
 while deck.remaining_cards > 0
   card = deck.draw_card # card is an instance of the Card class
   puts card.question
@@ -66,7 +69,64 @@ while deck.remaining_cards > 0
   user_answer = gets.chomp
   if user_answer.downcase == card.answer.downcase
     puts "Correct!"
+    right_total += 1
   else
-    puts "Incorrect!"
+    puts 'Try again dumb dumb'
+    user_answer = gets.chomp
+    if user_answer.downcase == card.answer.downcase
+      puts "Correct!"
+      right_total += 1
+    else
+      puts "Incorrect!"
+      wrong_total += 1
+      incorrect_cards << card
+    end
+  end
+  puts "--------------------------------------------------------------------"
+end
+
+score = right_total - wrong_total
+puts "You got #{right_total.to_s} right and #{wrong_total.to_s} wrong. Your score is #{score}."
+
+if
+  wrong_total == 0
+  puts "Great! Don't let it get go to your head kid."
+elsif right_total == 0
+  puts "Jesus..."
+elsif score > 0
+  puts "Good job. Not great. Just good."
+else
+  puts "Maybe knowing stuff's just not your thing. Here's a coloring book."
+end 
+
+if incorrect_cards.length > 0
+  puts 'Would you like to try the questions you got wrong again? Type "yes" or "no".'
+  response = gets.chomp
+  if response == 'no'
+    puts "Good for you for being happy where you are!"
+  else
+    while deck.remaining_cards > 0
+    card = deck.draw_card # card is an instance of the Card class
+    puts card.question
+    puts "Your choices are:"
+    puts card.choices
+    user_answer = gets.chomp
+    if user_answer.downcase == card.answer.downcase
+      puts "Correct!"
+      right_total += 1
+    else
+      puts 'Try again dumb dumb'
+      user_answer = gets.chomp
+      if user_answer.downcase == card.answer.downcase
+        puts "Correct!"
+        right_total += 1
+      else
+        puts "Incorrect!"
+        wrong_total += 1
+        incorrect_cards << card
+      end
+    end
+    puts "--------------------------------------------------------------------"
+  end
   end
 end
